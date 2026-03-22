@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>かばねりちゃんす判断</title>
+<title>かばねりちゃんすナビ（完全版）</title>
 
 <style>
 body {
@@ -11,87 +11,104 @@ body {
   font-family: sans-serif;
   background: #0a0a0a;
   color: white;
-  text-align: center;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
   height: 100vh;
+  text-align: center;
 }
 
 h1 {
   color: #ffcc00;
+  margin-bottom: 20px;
 }
 
 button {
   margin: 10px;
   padding: 18px;
   font-size: 20px;
-  border: none;
-  border-radius: 10px;
   width: 80%;
   max-width: 300px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .left { background: #3498db; }
-.skill { background: #e74c3c; }
+.mid { background: #e74c3c; }
+.right { background: #f39c12; }
 
-#result {
-  margin-top: 30px;
-  font-size: 22px;
+#advice {
+  font-size: 24px;
+  margin-top: 20px;
   color: #00ffcc;
 }
 
-#mode {
+#reason {
   margin-top: 10px;
   color: #aaa;
+}
+
+#mode {
+  margin-bottom: 10px;
+  color: #ccc;
 }
 </style>
 </head>
 
 <body>
 
-<h1>かばねりちゃんす</h1>
-
+<h1>かばねりちゃんす（完全版）</h1>
 <div id="mode">モード判定中...</div>
 
 <button class="left" onclick="choose('左')">左（運50%）</button>
-<button class="skill" onclick="choose('中右')">中右（実力）</button>
+<button class="mid" onclick="choose('中')">中（実力）</button>
+<button class="right" onclick="choose('右')">右（実力）</button>
 
-<div id="result"></div>
+<div id="advice"></div>
+<div id="reason"></div>
 
 <script>
-// モードをランダム生成（それっぽさ用）
-const modes = ['通常', '高期待', 'チャンス'];
+// モード判定（ランダムで変化）
+const modes = ['左', '通常', 'チャンス', '激アツ'];
 const currentMode = modes[Math.floor(Math.random() * modes.length)];
-
 document.getElementById("mode").textContent = "現在モード：" + currentMode;
 
-function choose(choice) {
+function choose(userChoice) {
   let recommended;
+  let reason;
 
-  // モードごとの判断ロジック
-  if (currentMode === 'チャンス') {
-    recommended = '中右'; // 強い時は実力押し
-  } else if (currentMode === '高期待') {
-    recommended = Math.random() < 0.7 ? '中右' : '左';
-  } else {
-    recommended = Math.random() < 0.5 ? '左' : '中右';
+  // モードによるおすすめ判定
+  if (currentMode === '左') {
+    // 左＝運、実力はやや低め
+    recommended = Math.random() < 0.5 ? '左' : (Math.random() < 0.5 ? '中' : '右');
+  } else if (currentMode === '通常') {
+    recommended = Math.random() < 0.6 ? '中' : '右';
+  } else if (currentMode === 'チャンス') {
+    recommended = Math.random() < 0.7 ? '中' : '右';
+  } else if (currentMode === '激アツ') {
+    recommended = '右';
   }
 
-  let message = '';
+  // 理由の付与
+  if (recommended === '左') reason = '運ゲーで勝負！';
+  else if (recommended === '中') reason = '安定実力寄り';
+  else if (recommended === '右') reason = '攻めるタイミング';
 
-  if (choice === recommended) {
-    message = '👍 ナイス選択！ →『' + choice + '』';
-  } else {
-    message = '👉 今回は『' + recommended + '』推奨';
-  }
+  // 結果表示
+  let message = (userChoice === recommended) 
+      ? '👍 ナイス選択 → 『' + userChoice + '』'
+      : '👉 今回は『' + recommended + '』が推奨';
 
-  // 激アツ演出（ランダム）
-  if (Math.random() < 0.2) {
-    message += ' 🔥激アツ!!';
-  }
+  // 激アツ演出ランダム
+  if (Math.random() < 0.1) message += ' 🔥激アツ!!';
 
-  document.getElementById("result").textContent = message;
+  document.getElementById("advice").textContent = message;
+  document.getElementById("reason").textContent = reason;
+
+  // スマホ振動
+  if (navigator.vibrate) navigator.vibrate(100);
 }
 </script>
 
