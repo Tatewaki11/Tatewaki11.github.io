@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>二択選択</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f5f5f5;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      display: flex;
+      width: 90%;
+      max-width: 400px;
+      gap: 10px;
+    }
+
+    button {
+      flex: 1;
+      font-size: 20px;
+      padding: 20px;
+      border: none;
+      border-radius: 12px;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:active {
+      transform: scale(0.95);
+      background-color: #0056b3;
+    }
+
+    #result {
+      margin-top: 30px;
+      font-size: 20px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>どちらを選びますか？</h1>
+
+  <div class="buttons">
+    <button onclick="selectOption('中')">中</button>
+    <button onclick="selectOption('右')">右</button>
+  </div>
+
+  <div id="result"></div>
+
+  <script>
+    function selectOption(choice) {
+      document.getElementById("result").textContent =
+        "あなたは「" + choice + "」を選びました！";
+    }
+  </script>
+
+</body>
+</html>
