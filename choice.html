@@ -1,86 +1,99 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>かばねりちゃんす攻略</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>かばねりちゃんす判断</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      background: #111;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: #0a0a0a;
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+}
 
-    h1 {
-      font-size: 24px;
-      margin-bottom: 30px;
-      color: #ffcc00;
-    }
+h1 {
+  color: #ffcc00;
+}
 
-    .buttons {
-      display: flex;
-      width: 90%;
-      max-width: 400px;
-      gap: 10px;
-    }
+button {
+  margin: 10px;
+  padding: 18px;
+  font-size: 20px;
+  border: none;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 300px;
+}
 
-    button {
-      flex: 1;
-      padding: 20px;
-      font-size: 22px;
-      border: none;
-      border-radius: 12px;
-      background: #e60033;
-      color: white;
-    }
+.left { background: #3498db; }
+.skill { background: #e74c3c; }
 
-    button:active {
-      transform: scale(0.95);
-    }
+#result {
+  margin-top: 30px;
+  font-size: 22px;
+  color: #00ffcc;
+}
 
-    #result {
-      margin-top: 30px;
-      font-size: 22px;
-      color: #00ffcc;
-    }
-  </style>
+#mode {
+  margin-top: 10px;
+  color: #aaa;
+}
+</style>
 </head>
 
 <body>
 
-  <h1>かばねりちゃんす</h1>
+<h1>かばねりちゃんす</h1>
 
-  <div class="buttons">
-    <button onclick="choose('中')">中</button>
-    <button onclick="choose('右')">右</button>
-  </div>
+<div id="mode">モード判定中...</div>
 
-  <div id="result"></div>
+<button class="left" onclick="choose('左')">左（運50%）</button>
+<button class="skill" onclick="choose('中右')">中右（実力）</button>
 
-  <script>
-    function choose(userChoice) {
-      // ランダムでおすすめ決定
-      const options = ['中', '右'];
-      const recommended = options[Math.floor(Math.random() * options.length)];
+<div id="result"></div>
 
-      let message = '';
+<script>
+// モードをランダム生成（それっぽさ用）
+const modes = ['通常', '高期待', 'チャンス'];
+const currentMode = modes[Math.floor(Math.random() * modes.length)];
 
-      if (userChoice === recommended) {
-        message = '正解っぽい！👉『' + userChoice + '』';
-      } else {
-        message = '今回は『' + recommended + '』が良さそう';
-      }
+document.getElementById("mode").textContent = "現在モード：" + currentMode;
 
-      document.getElementById("result").textContent = message;
-    }
-  </script>
+function choose(choice) {
+  let recommended;
+
+  // モードごとの判断ロジック
+  if (currentMode === 'チャンス') {
+    recommended = '中右'; // 強い時は実力押し
+  } else if (currentMode === '高期待') {
+    recommended = Math.random() < 0.7 ? '中右' : '左';
+  } else {
+    recommended = Math.random() < 0.5 ? '左' : '中右';
+  }
+
+  let message = '';
+
+  if (choice === recommended) {
+    message = '👍 ナイス選択！ →『' + choice + '』';
+  } else {
+    message = '👉 今回は『' + recommended + '』推奨';
+  }
+
+  // 激アツ演出（ランダム）
+  if (Math.random() < 0.2) {
+    message += ' 🔥激アツ!!';
+  }
+
+  document.getElementById("result").textContent = message;
+}
+</script>
 
 </body>
 </html>
