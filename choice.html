@@ -3,23 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>二択選択</title>
+  <title>かばねりちゃんす攻略</title>
+
   <style>
     body {
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
       margin: 0;
-      padding: 0;
+      font-family: sans-serif;
+      background: #111;
+      color: white;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      background-color: #f5f5f5;
     }
 
     h1 {
       font-size: 24px;
       margin-bottom: 30px;
+      color: #ffcc00;
     }
 
     .buttons {
@@ -31,43 +33,52 @@
 
     button {
       flex: 1;
-      font-size: 20px;
       padding: 20px;
+      font-size: 22px;
       border: none;
       border-radius: 12px;
-      background-color: #007bff;
+      background: #e60033;
       color: white;
-      cursor: pointer;
-      transition: 0.2s;
     }
 
     button:active {
       transform: scale(0.95);
-      background-color: #0056b3;
     }
 
     #result {
       margin-top: 30px;
-      font-size: 20px;
-      color: #333;
+      font-size: 22px;
+      color: #00ffcc;
     }
   </style>
 </head>
+
 <body>
 
-  <h1>どちらを選びますか？</h1>
+  <h1>かばねりちゃんす</h1>
 
   <div class="buttons">
-    <button onclick="selectOption('中')">中</button>
-    <button onclick="selectOption('右')">右</button>
+    <button onclick="choose('中')">中</button>
+    <button onclick="choose('右')">右</button>
   </div>
 
   <div id="result"></div>
 
   <script>
-    function selectOption(choice) {
-      document.getElementById("result").textContent =
-        "あなたは「" + choice + "」を選びました！";
+    function choose(userChoice) {
+      // ランダムでおすすめ決定
+      const options = ['中', '右'];
+      const recommended = options[Math.floor(Math.random() * options.length)];
+
+      let message = '';
+
+      if (userChoice === recommended) {
+        message = '正解っぽい！👉『' + userChoice + '』';
+      } else {
+        message = '今回は『' + recommended + '』が良さそう';
+      }
+
+      document.getElementById("result").textContent = message;
     }
   </script>
 
