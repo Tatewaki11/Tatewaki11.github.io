@@ -100,7 +100,7 @@ function choose(userChoice) {
   } else if (currentMode === '通常') {
     recommended = Math.random() < 0.34 ? '左' : (Math.random() < 0.33 ? '中' : '右');
   } else if (currentMode === 'チャンス') {
-    recommended = Math.random() < 0.5 ? '中' : '右';
+    recommended = Math.random() < 0.1 ? '左' : (Math.random() < 0.4 ? '中' : '右');
   } else if (currentMode === '激アツ') {
     recommended = Math.random() < 0.5 ? '中' : '右';
   }
