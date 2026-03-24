@@ -98,11 +98,11 @@ function choose(userChoice) {
     // 左＝運、実力はやや低め
     recommended = Math.random() < 0.5 ? '左' : (Math.random() < 0.5 ? '中' : '右');
   } else if (currentMode === '通常') {
-    recommended = Math.random() < 0.6 ? '中' : '右';
+    recommended = Math.random() < 0.34 ? '左' : (Math.random() < 0.33 ? '中' : '右');
   } else if (currentMode === 'チャンス') {
-    recommended = Math.random() < 0.7 ? '中' : '右';
+    recommended = Math.random() < 0.5 ? '中' : '右';
   } else if (currentMode === '激アツ') {
-    recommended = '右';
+    recommended = Math.random() < 0.5 ? '中' : '右';
   }
 
   // 理由の付与
