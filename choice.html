@@ -39,6 +39,14 @@ button {
 .mid { background: #e74c3c; }
 .right { background: #f39c12; }
 
+.mode-change { 
+  background: #9b59b6;
+  width: auto;
+  max-width: 150px;
+  padding: 10px 15px;
+  font-size: 16px;
+}
+
 #advice {
   font-size: 24px;
   margin-top: 20px;
@@ -61,6 +69,7 @@ button {
 
 <h1>かばねりちゃんす（完全版）</h1>
 <div id="mode">モード判定中...</div>
+<button class="mode-change" onclick="changeMode()">モード変更</button>
 
 <button class="left" onclick="choose('左')">左（運50%）</button>
 <button class="mid" onclick="choose('中')">中（実力）</button>
@@ -72,8 +81,13 @@ button {
 <script>
 // モード判定（ランダムで変化）
 const modes = ['左', '通常', 'チャンス', '激アツ'];
-const currentMode = modes[Math.floor(Math.random() * modes.length)];
+let currentMode = modes[Math.floor(Math.random() * modes.length)];
 document.getElementById("mode").textContent = "現在モード：" + currentMode;
+
+function changeMode() {
+  currentMode = modes[Math.floor(Math.random() * modes.length)];
+  document.getElementById("mode").textContent = "現在モード：" + currentMode;
+}
 
 function choose(userChoice) {
   let recommended;
